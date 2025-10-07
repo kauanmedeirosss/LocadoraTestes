@@ -7,8 +7,8 @@ Mantendo os imports das bibliotecas static, podemos criar testes de forma menos 
 ## Sobre pacotes
 Da mesma forma que organizamos os pacotes em src/main, devemos organizar em src/test.
 * Exemplo: 
-  * em src/main temos model/Carro
-  * em src/test temos, também, model/CarroTest
+  * em src/main temos java/... e resources/...
+  * em src/test temos, também, java/... e resources/...
 
 ## Sobre estrutura e cenários de teste
 A menor unidade de algoritmo dentro de uma classe é o método, são eles quem devem ser testados.
@@ -22,5 +22,15 @@ Para cada método testamos seus cenários, para saber se um método tem mais de 
 Uma execução linear é a execução que tem apenas um procedimento, sem variações.
 
 ## Bibliotecas de testes usadas
-* org.junit.jupiter.api.Assertions.*; -> Biblioteca padrão do JUnit .
+* org.junit.jupiter.api.Assertions.*; -> Biblioteca padrão do JUnit.
 * org.assertj.core.api.Assertions.*; -> Biblioteca complementar (vem junto do springboot) Assertj.
+
+## Sobre tipos de teste
+### Testes Unitários
+Testa lógica de componentes isolados. Tem Mock.
+* Ex: CarroTest, que testou lógica de calculo de valor sem se integrar a nenhum serviço externo (como: bancos de dados, mensagerias, API externas).
+
+### Testes de Integração
+Testa lógica de componentes integrados a algum serviço. Não tem Mock.
+* Ex: CarroRepositoryTest, testa CRUD realizando conexão com o banco de dados em memória.
+* OBS: testes são sempre realizados com bancos em memória, pois fica mais leve para a aplicação rodar.

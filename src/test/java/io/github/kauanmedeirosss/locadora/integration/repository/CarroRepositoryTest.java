@@ -1,4 +1,4 @@
-package io.github.kauanmedeirosss.locadora.unit.repository;
+package io.github.kauanmedeirosss.locadora.integration.repository;
 
 import io.github.kauanmedeirosss.locadora.entity.CarroEntity;
 import io.github.kauanmedeirosss.locadora.repository.CarroRepository;
