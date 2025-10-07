@@ -1,10 +1,13 @@
 package io.github.kauanmedeirosss.locadora.model;
 
+import lombok.Data;
+
+@Data
+
 public class Carro {
 
     private String modelo;
     private Double valorDiaria;
-
 
     public Carro(String modelo, Double valorDiaria) {
         this.modelo = modelo;
@@ -19,19 +22,4 @@ public class Carro {
         return (dias * valorDiaria) - desconto;
     }
 
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
-    public Double getValorDiaria() {
-        return valorDiaria;
-    }
-
-    public void setValorDiaria(Double valorDiaria) {
-        this.valorDiaria = valorDiaria;
-    }
 }

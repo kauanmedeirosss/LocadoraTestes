@@ -1,7 +1,9 @@
 package io.github.kauanmedeirosss.locadora.model;
 
 import io.github.kauanmedeirosss.locadora.exception.ReservaInvalidaException;
+import lombok.Data;
 
+@Data
 public class Reserva {
 
     private Cliente cliente;
@@ -20,27 +22,4 @@ public class Reserva {
         return carro.calcularValorAluguel(dias);
     }
 
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public Carro getCarro() {
-        return carro;
-    }
-
-    public void setCarro(Carro carro) {
-        this.carro = carro;
-    }
-
-    public Integer getDias() {
-        return dias;
-    }
-
-    public void setDias(Integer dias) {
-        this.dias = dias;
-    }
 }
