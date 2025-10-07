@@ -1,7 +1,9 @@
 package io.github.kauanmedeirosss.locadora.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "carros")
@@ -17,6 +19,9 @@ public class CarroEntity {
     public CarroEntity(String modelo, Double valorDiaria) {
         this.modelo = modelo;
         this.valorDiaria = valorDiaria;
+    }
+
+    public CarroEntity() {
     }
 
 }
