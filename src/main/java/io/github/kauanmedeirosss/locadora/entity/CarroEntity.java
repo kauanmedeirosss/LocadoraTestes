@@ -15,10 +15,12 @@ public class CarroEntity {
     private Long id;
     private String modelo;
     private Double valorDiaria;
+    private Integer ano;
 
-    public CarroEntity(String modelo, Double valorDiaria) {
+    public CarroEntity(String modelo, Double valorDiaria, Integer ano) {
         this.modelo = modelo;
         this.valorDiaria = valorDiaria;
+        this.ano = ano;
     }
 
     public CarroEntity() {

@@ -12,3 +12,4 @@
   - Entity (JPA Entity)
     * Cuida da persistência no banco
 * 9 -> usando arquivo sql para carregar registros no banco e montar cenário de teste
+* 10 -> fazendo CRUD de testes no CarroRepositoryTest
