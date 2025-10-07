@@ -1,5 +1,6 @@
-package io.github.kauanmedeirosss.locadora.model;
+package io.github.kauanmedeirosss.locadora.unit.model;
 
+import io.github.kauanmedeirosss.locadora.model.Cliente;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

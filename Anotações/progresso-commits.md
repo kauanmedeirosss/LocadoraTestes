@@ -4,3 +4,4 @@
 * 3 -> Conceitos explicados na anotação e novo teste escrito
 * 4 -> Classe model e test Cliente criadas e nova biblioteca de testes usada
 * 5 -> Classe model e test Reserva criadas, mostrado também forma de melhorar testes com método setUp que usa a anotação @BeforeEach para inicialização, esse método zera o retrabalho de instancia. Formas de testar exceções também demonstradas
+* 6 -> Demonstração do BeforeAll, AfterAll e Disabled na classe DatabaseTest

@@ -1,6 +1,9 @@
-package io.github.kauanmedeirosss.locadora.model;
+package io.github.kauanmedeirosss.locadora.unit.model;
 
 import io.github.kauanmedeirosss.locadora.exception.ReservaInvalidaException;
+import io.github.kauanmedeirosss.locadora.model.Carro;
+import io.github.kauanmedeirosss.locadora.model.Cliente;
+import io.github.kauanmedeirosss.locadora.model.Reserva;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,5 +1,6 @@
-package io.github.kauanmedeirosss.locadora.model;
+package io.github.kauanmedeirosss.locadora.unit.model;
 
+import io.github.kauanmedeirosss.locadora.model.Carro;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
