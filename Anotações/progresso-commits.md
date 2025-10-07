@@ -14,4 +14,5 @@
 * 9 -> usando arquivo sql para carregar registros no banco e montar cenário de teste
 * 10 -> fazendo CRUD de testes no CarroRepositoryTest
 * 11 -> Criando service de carro e conhecendo o mockito com 2 métodos que exibem seu comportamento em CarroServiceTest
-* 12 ->
+* 12 -> implementando o salvar e seus 2 casos no CarroServiceTest, foram deixadas também anotações sobre métodos do Mockito
+* 13 -> 
