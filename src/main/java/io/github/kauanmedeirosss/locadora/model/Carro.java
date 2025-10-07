@@ -12,7 +12,7 @@ public class Carro {
     }
 
     public Double calcularValorAluguel(Integer dias){
-        Double desconto = Double.valueOf(0);
+        Double desconto = Double.valueOf(0.0);
         if (dias >= 5){
             desconto = 50.0;
         }
