@@ -16,3 +16,7 @@
 * 11 -> Criando service de carro e conhecendo o mockito com 2 métodos que exibem seu comportamento em CarroServiceTest
 * 12 -> implementando o salvar e seus 2 casos no CarroServiceTest, foram deixadas também anotações sobre métodos do Mockito
 * 13 -> finalizando testes na camada de service
+* 14 -> Iniciando a construção do controller
+  * Testes na camada de API (controllers), não serão repetidos os que foram feitos na camada de serviço, levando em conta que controllers, basicamente, consomem serviços.  
+  * Será o teste funcional, testar a API da forma que o client irá usar ela.
+  * Podem ser feitos testes unitários e funcionais na camada de controller, mas aqui o foco é apenas funcional

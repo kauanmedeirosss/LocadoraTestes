@@ -23,14 +23,13 @@ Projeto de uma API para locadora de veículos com foco exclusivo em implementaç
 ## 🔧 Outras Ferramentas
 * JSONPath - Verificação de respostas JSON
 * Spring Boot Test - Testes de integração
-* Test Containers - Isolamento de testes
 
 ---
 
 ## 🎯 Estrutura dos Componentes
 ### 🚗 Carro
 * Entidade principal do sistema
-* Atributos: modelo, valorDiaria, disponibilidade
+* Atributos: modelo, valorDiaria, ano
 * Responsável por cálculos de valor
 
 ### 👤 Cliente
