@@ -2,6 +2,7 @@ package io.github.kauanmedeirosss.locadora.functional.web;
 
 import io.github.kauanmedeirosss.locadora.controller.CarroController;
 import io.github.kauanmedeirosss.locadora.entity.CarroEntity;
+import io.github.kauanmedeirosss.locadora.exception.EntityNotFoundException;
 import io.github.kauanmedeirosss.locadora.service.CarroService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -54,5 +55,31 @@ class CarroControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.modelo").value("Lancer"));
     }
+
+    @Test
+    void deveBuscarCarro() throws Exception{
+        Mockito.when(service.buscar(Mockito.any()))
+                .thenReturn(new CarroEntity(1L, "Lancer", 120.0, 2025));
+
+        // Execução e verificação numa lapada só
+        mvc.perform(
+                MockMvcRequestBuilders.get("/carros/1")
+        ).andExpect(MockMvcResultMatchers.status().isOk())
+         .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
+         .andExpect(MockMvcResultMatchers.jsonPath("$.modelo").value("Lancer"))
+         .andExpect(MockMvcResultMatchers.jsonPath("$.valorDiaria").value(120.0))
+         .andExpect(MockMvcResultMatchers.jsonPath("$.ano").value(2025));
+    }
+
+    @Test
+    void deveDarErroAoBuscar() throws Exception{
+        Mockito.when(service.buscar(Mockito.any())).thenThrow(EntityNotFoundException.class);
+
+        mvc.perform(
+                        MockMvcRequestBuilders.get("/carros/1")
+                ).andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+
 
 }
