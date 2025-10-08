@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 // controller simples e sem uso de DTO já que o foco é teste
 @RestController
 @RequestMapping("/carros")
-@RequiredArgsConstructor
 public class CarroController {
 
     private final CarroService service;
+
+    public CarroController(CarroService service) {
+        this.service = service;
+    }
 
     // Retorna Object já que pode retornar mensagem de erro (String) ou o objeto salvo (CarroEntity)
     @PostMapping

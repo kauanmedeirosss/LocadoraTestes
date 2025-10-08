@@ -1,8 +1,5 @@
 package io.github.kauanmedeirosss.locadora.model;
 
-import lombok.Data;
-
-@Data
 public class Cliente {
 
     private String nome;
@@ -11,4 +8,11 @@ public class Cliente {
         this.nome = nome;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }
