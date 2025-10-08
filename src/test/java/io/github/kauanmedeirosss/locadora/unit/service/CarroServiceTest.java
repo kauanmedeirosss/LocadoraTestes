@@ -1,6 +1,7 @@
 package io.github.kauanmedeirosss.locadora.unit.service;
 
 import io.github.kauanmedeirosss.locadora.entity.CarroEntity;
+import io.github.kauanmedeirosss.locadora.exception.EntityNotFoundException;
 import io.github.kauanmedeirosss.locadora.repository.CarroRepository;
 import io.github.kauanmedeirosss.locadora.service.CarroService;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
@@ -96,6 +98,120 @@ public class CarroServiceTest {
 
         // para verificar se foi chamado pelo menos 10 vezes, ideal para testar loops
         //Mockito.verify(repository, Mockito.atLeast(10)).save(Mockito.any());
+    }
+
+    @Test
+    void deveAtualizarCarro(){
+        //Cenário
+        // EXISTE um carro antigo no banco de dados
+        Long id = 1L;
+        var carroAntigo = new CarroEntity("Gol", 50.0, 2025);
+        carroAntigo.setId(id);
+
+        // O USUÁRIO quer atualizar para estes NOVOS dados
+        var novosDados = new CarroEntity("Voyage", 80.0, 2025); // Dados atualizados
+
+        // Como o sistema DEVE responder após a atualização
+        var carroAtualizado = new CarroEntity("Voyage", 80.0, 2025);
+        carroAtualizado.setId(id);
+
+        // mocks
+        // Quando alguém buscar pelo ID 1, retorne o carro antigo
+        Mockito.when(repository.findById(id)).thenReturn(Optional.of(carroAntigo));
+        // Quando alguém salvar qualquer carro, retorne o carro atualizado
+        Mockito.when(repository.save(Mockito.any())).thenReturn(carroAtualizado);
+
+        var resultado = service.atualizar(id, novosDados);
+
+        // ASSERT
+        assertEquals("Voyage", resultado.getModelo()); // Novo nome
+        assertEquals(80.0, resultado.getValorDiaria()); // Novo valor
+        assertEquals(2025, resultado.getAno()); // Ano mantido
+
+        // VERIFY
+        Mockito.verify(repository).findById(id);
+        Mockito.verify(repository).save(Mockito.any());
+    }
+
+    @Test
+    void deveDarErroAoTentarAtualizarCarroInexistente(){
+        Long id = 1L;
+        var carro = new CarroEntity("Gol", 50.0, 2025);
+
+        Mockito.when(repository.findById(Mockito.any())).thenReturn(Optional.empty());
+
+        var erro = catchThrowable(() -> service.atualizar(id, carro));
+
+        assertThat(erro).isInstanceOf(EntityNotFoundException.class);
+        Mockito.verify(repository, Mockito.never()).save(Mockito.any());
+    }
+
+    @Test
+    void deveDeletarCarro(){
+        Long id = 1L;
+        var carro = new CarroEntity("Gol", 50.0, 2025);
+
+        Mockito.when(repository.findById(Mockito.any())).thenReturn(Optional.of(carro));
+
+        service.deletar(id);
+
+        Mockito.verify(repository, Mockito.times(1)).delete(carro);
+    }
+
+    @Test
+    void deveDarErroAoTentarDeletarCarroInexistente(){
+        Long id = 1L;
+
+        Mockito.when(repository.findById(Mockito.any())).thenReturn(Optional.empty());
+
+        var erro = catchThrowable(() -> service.deletar(id));
+
+        assertThat(erro).isInstanceOf(EntityNotFoundException.class);
+        Mockito.verify(repository, Mockito.never()).delete(Mockito.any());
+    }
+
+    @Test
+    void deveBuscarCarro(){
+        Long id = 1L;
+        var carro = new CarroEntity("Gol", 50.0, 2025);
+
+        Mockito.when(repository.findById(Mockito.any())).thenReturn(Optional.of(carro));
+
+        var carroEncontrado = service.buscar(id);
+
+        assertThat(carroEncontrado.getModelo()).isEqualTo("Gol");
+        assertThat(carroEncontrado.getValorDiaria()).isEqualTo(50.0);
+        assertThat(carroEncontrado.getAno()).isEqualTo(2025);
+    }
+
+    @Test
+    void deveDarErroAoTentarBuscarCarroInexistente(){
+        Long id = 1L;
+
+        Mockito.when(repository.findById(Mockito.any())).thenReturn(Optional.empty());
+
+        var erro = catchThrowable(() -> service.buscar(id));
+
+        assertThat(erro).isInstanceOf(EntityNotFoundException.class);
+        Mockito.verify(repository).findById(id);
+    }
+
+    @Test
+    void deveListarTodosOsCarros(){
+        var carro1 = new CarroEntity(1L,"Gol", 50.0, 2025);
+        var carro2 = new CarroEntity(2L,"Sedan", 100.0, 2025);
+        var carro3 = new CarroEntity(3L,"Sedan", 80.0, 2023);
+
+        var lista = List.of(carro1, carro2, carro3);
+
+        Mockito.when(repository.findAll()).thenReturn(lista);
+
+        List<CarroEntity> resultado = service.listar();
+
+        assertThat(resultado).hasSize(3);
+        Mockito.verify(repository, Mockito.times(1)).findAll();
+        // verifica se não houveram mais interações com esse mock
+        Mockito.verifyNoMoreInteractions(repository);
     }
 
 }
