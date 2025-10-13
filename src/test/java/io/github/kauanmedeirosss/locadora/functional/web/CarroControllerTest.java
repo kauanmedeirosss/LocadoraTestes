@@ -4,7 +4,6 @@ import io.github.kauanmedeirosss.locadora.controller.CarroController;
 import io.github.kauanmedeirosss.locadora.entity.CarroEntity;
 import io.github.kauanmedeirosss.locadora.exception.EntityNotFoundException;
 import io.github.kauanmedeirosss.locadora.service.CarroService;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
-
-import static org.mockito.ArgumentMatchers.eq;
 
 @WebMvcTest(CarroController.class)
 class CarroControllerTest {
@@ -140,6 +137,22 @@ class CarroControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json)
         ).andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    void deveDeletarCarro() throws Exception{
+        Mockito.doNothing().when(service).deletar(Mockito.any());
+
+        mvc.perform(MockMvcRequestBuilders.delete("/carros/1"))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+
+    @Test
+    void deveDarErroDeletarCarro() throws Exception{
+        Mockito.doThrow(EntityNotFoundException.class).when(service).deletar(Mockito.any());
+
+        mvc.perform(MockMvcRequestBuilders.delete("/carros/1"))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
 }
