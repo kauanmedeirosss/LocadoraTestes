@@ -22,3 +22,4 @@
   * Podem ser feitos testes unitários e funcionais na camada de controller, mas aqui o foco é apenas funcional
 * 15 -> iniciando a contrução da classe de teste do controller com método de salvar
 * 16 -> testes dos 2 casos de busca do controller implementados
+* 17 -> testes de listagem e os 2 casos de atualização implementados

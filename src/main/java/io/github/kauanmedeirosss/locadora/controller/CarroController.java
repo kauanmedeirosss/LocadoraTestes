@@ -3,11 +3,11 @@ package io.github.kauanmedeirosss.locadora.controller;
 import io.github.kauanmedeirosss.locadora.entity.CarroEntity;
 import io.github.kauanmedeirosss.locadora.exception.EntityNotFoundException;
 import io.github.kauanmedeirosss.locadora.service.CarroService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 // controller simples e sem uso de DTO já que o foco é teste
 @RestController
@@ -38,6 +38,21 @@ public class CarroController {
         try{
             var carroBuscado = service.buscar(id);
             return ResponseEntity.ok(carroBuscado);
+        } catch (EntityNotFoundException e){
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CarroEntity>> listar(){
+        return ResponseEntity.ok(service.listar());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> atualizar(@PathVariable Long id, @RequestBody CarroEntity dadosAtualizados){
+        try{
+            service.atualizar(id, dadosAtualizados);
+            return ResponseEntity.noContent().build();
         } catch (EntityNotFoundException e){
             return ResponseEntity.notFound().build();
         }

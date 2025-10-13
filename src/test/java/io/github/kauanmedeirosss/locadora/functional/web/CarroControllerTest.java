@@ -4,6 +4,7 @@ import io.github.kauanmedeirosss.locadora.controller.CarroController;
 import io.github.kauanmedeirosss.locadora.entity.CarroEntity;
 import io.github.kauanmedeirosss.locadora.exception.EntityNotFoundException;
 import io.github.kauanmedeirosss.locadora.service.CarroService;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.List;
+
+import static org.mockito.ArgumentMatchers.eq;
 
 @WebMvcTest(CarroController.class)
 class CarroControllerTest {
@@ -80,6 +85,61 @@ class CarroControllerTest {
                 ).andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
+    @Test
+    void deveListarCarros() throws Exception{
+        var listagem = List.of(
+                new CarroEntity(1L, "Civic", 150.0, 2025),
+                new CarroEntity(2L, "Lancer", 150.0, 2025),
+                new CarroEntity(3L, "Eclipse", 180.0, 2025),
+                new CarroEntity(4L, "Supra", 200.0, 2025)
+        );
 
+        Mockito.when(service.listar()).thenReturn(listagem);
+
+        mvc.perform(MockMvcRequestBuilders.get("/carros")
+                ).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].modelo").value("Civic"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].modelo").value("Lancer"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[2].modelo").value("Eclipse"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[3].modelo").value("Supra"));
+    }
+
+    @Test
+    void deveAtualizarCarro() throws Exception{
+        Mockito.when(service.atualizar(Mockito.any(), Mockito.any()))
+                .thenReturn(new CarroEntity(1L, "Civic", 150.0, 2024));
+
+        String json = """
+                {
+                    "modelo": "Civic",
+                    "valorDiaria": 150.0,
+                    "ano": 2024
+                }
+                """;
+
+        mvc.perform(MockMvcRequestBuilders.put("/carros/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json)
+        ).andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+
+    @Test
+    void deveDarErroAoAtualizar() throws Exception{
+        Mockito.when(service.atualizar(Mockito.any(), Mockito.any()))
+                .thenThrow(EntityNotFoundException.class);
+
+        String json = """
+                {
+                    "modelo": "Civic",
+                    "valorDiaria": 150.0,
+                    "ano": 2024
+                }
+                """;
+
+        mvc.perform(MockMvcRequestBuilders.put("/carros/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json)
+        ).andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
 
 }
