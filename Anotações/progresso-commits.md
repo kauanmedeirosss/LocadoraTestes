@@ -24,3 +24,4 @@
 * 16 -> testes dos 2 casos de busca do controller implementados
 * 17 -> testes de listagem e os 2 casos de atualização implementados
 * 18 -> teste de deletar implementado
+* 19 -> Anotações sobre cobertura de testes

@@ -34,3 +34,39 @@ Testa lógica de componentes isolados. Tem Mock.
 Testa lógica de componentes integrados a algum serviço. Não tem Mock.
 * Ex: CarroRepositoryTest, testa CRUD realizando conexão com o banco de dados em memória.
 * OBS: testes são sempre realizados com bancos em memória, pois fica mais leve para a aplicação rodar.
+
+### Testes de Funcionalidade
+Testa se a API (seus endpoints) está funcionando do ponto de vista de quem consome a API (o client).
+* Ex: CarroControllerTest.
+
+## Cobertura de testes e JaCoCo
+### Sobre cobertura de testes
+Quando se fala em cobertura de testes, se fala sobre quantos % do código foi testado.  
+Para essa cobertura de testes se faz necessária uma feramenta que auxilia a saber quantos % de cada classe e que partes do código não foram testadas ainda.  
+Essa é uma prática de qualidade de código/projeto.
+
+### Sobre ferramenta de cobertura da IDE IntelliJ
+O próprio IntelliJ possui essa ferramenta de cobertura.  
+
+Acessamos com: click direito na pasta raiz do projeto (neste caso "locadora") > More run/debug > Run "All Tests" with Coverage.
+* Esse comando faz com que todos os testes sejam executados com cobertura.
+* Após rodar esse comando, é mostrado, no pacore main, ao lado de cada pacote e classe a sua % de cobertura.
+* Ao entrarmos em cada classe, vemos na barra lateral esquerda (onde ficam os nº das linhas) em verde o que foi testado e em vermelho o que não foi testado.
+  - Em CarroController pode-se observar isso com o método de criar, ele tem uma parte testada e outra não testada.
+
+### Sobre JaCoCo
+Uma ferramenta para medir a cobertura de código em projetos
+
+Adicionando o JaCoCo
+* Para adicionar ao projeto é necessário colocar o plugin do Jacoco no pom.xml
+* Normalmente se configura o plugin para excluir pasta de model e entity, como foi feito (normalmente essas classes não possuem lógica)
+* Na parte de execution do plugin está sendo preparado o agente paa coletar dados e gerar relatório após os testes
+
+Rodando o JaCoCo
+* No menu maven (parte direita), selecionamos (neste exemplo) locadora > lifecycle > habilitamos testes > damos um clean install
+* No terminal dessa run é possível observar o resultado dos testes, ex:
+  - [INFO] Tests run: 34, Failures: 0, Errors: 0, Skipped: 0
+* Para obter o relatório do jacoco navegamos a pasta do projeto
+  - target > site > Jacoco > index.html
+* Para abrir o relatório:
+  - botão direito em index.html > Open In > Browser > escolher o que mais agrada
